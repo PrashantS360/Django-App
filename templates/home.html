@@ -35,17 +35,48 @@
 
   <form class="container" method="post" action="/">
     {% csrf_token %}
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" class="form-control" id="title" name="title" placeholder="Enter your blog title here..." required>
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">Content</label>
       <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Post</button>
+    </div> -->
+        <div class="row mt-4">
+          <div class="col col-2">
+            <h5 class="mr-3">Language : </h5>
+          </div>
+          <div class="col col-6">
+            <div class="row">
+              <div class="col">
+                <select class="form-select" name="language" id="language" aria-label="Default select example">
+                  <option value="{{ curr_lan.code }}" selected>{{ curr_lan.language }}</option>
+                  {% for lang in languages %}
+                  {% if lang.code != curr_lan.code %}
+                  <option value="{{ lang.code }}">{{ lang.language }}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-primary">Change</button>
+              </div>
+            </div>
+          </div>
+        </div>
   </form>
 
+{% for post in posts %}
+    <div class="container">
+      <div class="card my-3">
+        <h5 class="card-header">{{ post.sno }}</h5>
+        <div class="card-body">
+          <p class="card-text">{{ post.title }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
